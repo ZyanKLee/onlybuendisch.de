@@ -62,13 +62,13 @@ const trending = [
     isVideo: true,
   },
   {
-    title: 'Ich zeige dir meinen Knoten 😉',
+    title: 'Er wird diesen Knoten lieben... 😉',
     likes: '9.8k',
     src: mediaUrl('knoten.mp4'),
     isVideo: true,
   },
   {
-    title: 'Alles aus meinem Rucksack … wirklich alles',
+    title: 'Ich hole alles aus meinem Sack … wirklich alles',
     likes: '8.1k',
     src: mediaUrl('rucksack.mp4'),
     isVideo: true,
@@ -86,7 +86,7 @@ const trending = [
     isVideo: true,
   },
   {
-    title: 'Heiß & dampfend direkt vom Feuer',
+    title: 'Ich liebe es heiß und saftig 💦',
     likes: '5.9k',
     src: mediaUrl('eintopf.mp4'),
     isVideo: true,
