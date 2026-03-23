@@ -1,3 +1,9 @@
+// Vince Analytics/Plausible custom event tracking: add plausible to window type
+declare global {
+  interface Window {
+    plausible?: (event: string, options?: { props?: Record<string, any> }) => void;
+  }
+}
 import { AnimatePresence, motion } from 'framer-motion'
 import {
   Backpack,
@@ -250,6 +256,9 @@ export default function App() {
       if (!mainContent.contains(e.target as Node)) return;
       e.preventDefault();
       setModalOpen(true);
+      if (typeof window !== 'undefined' && typeof window.plausible === 'function') {
+        window.plausible('aprilModalActivated');
+      }
     };
     document.addEventListener('click', onClickCapture, true);
     return () => document.removeEventListener('click', onClickCapture, true);
