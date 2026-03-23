@@ -37,7 +37,7 @@ const creators = [
   { handle: '@FeuerUndFlamme', name: 'Feuer & Flamme', bio: 'Heißer Content. Versprochen.', tag: 'Night Sessions', posts: 342, avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=128&q=80' },
   { handle: '@AxtUndAndacht', name: 'Axt & Andacht', bio: 'Roh. Echt. Und immer am Feuer entstanden.', tag: 'Holz & Feuer', posts: 77, avatar: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=128&q=80' },
   { handle: '@Waldpoet', name: 'Waldpoet', bio: 'Ich war die ganze Nacht draußen… und es war besser als du denkst.', tag: 'Lyrik & Lager', posts: 54, avatar: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=128&q=80' },
-  { handle: '@SockeDesSchicksals', name: 'Socke des Schicksals', bio: 'Manchmal wird’s feucht. Aber immer legendär.', tag: 'Socken & Stories', posts: 39, avatar: '/public/profiles/SockeDesSchicksals.jpg' },
+  { handle: '@SockeDesSchicksals', name: 'Socke des Schicksals', bio: 'Manchmal wird’s feucht. Aber immer legendär.', tag: 'Socken & Stories', posts: 39, avatar: '/profiles/SockeDesSchicksals.jpg' },
   { handle: '@TopfUndTaten', name: 'Topf & Taten', bio: 'Heiß, würzig und direkt vom Feuer.', tag: 'Outdoor-Küche', posts: 61, avatar: 'https://images.unsplash.com/photo-1773507870654-9fb937bb588f?auto=format&fit=crop&w=128&q=80' },
   { handle: '@KnotenKalle', name: 'Knoten Kalle', bio: 'Fester wird’s nicht. Versprochen.', tag: 'Knoten & Tricks', posts: 102, avatar: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=128&q=80' },
   { handle: '@PacklistePro', name: 'Packliste Pro', bio: 'Ich packe Dinge aus… die du nicht erwartet hast.', tag: 'Gear & Tipps', posts: 88, avatar: 'https://images.unsplash.com/photo-1573145833249-404548708ab3?auto=format&fit=crop&w=128&q=80' },
@@ -45,7 +45,7 @@ const creators = [
   { handle: '@GlutUndGloria', name: 'Glut & Gloria', bio: 'Langsam aufgebaut. Lange gehalten.', tag: 'Feuer & Glut', posts: 57, avatar: 'https://images.unsplash.com/photo-1701849939549-d5ad4d92adbb?auto=format&fit=crop&w=128&q=80' },
   { handle: '@RegenRomantik', name: 'Regen Romantik', bio: 'Komplett durchnässt… und ich würde es wieder tun.', tag: 'Regen & Romantik', posts: 44, avatar: 'https://images.unsplash.com/photo-1542801205-5240aa78e9d4?auto=format&fit=crop&w=128&q=80' },
   { handle: '@TrailTiefgang', name: 'Trail Tiefgang', bio: 'Je tiefer der Schlamm, desto besser die Story.', tag: 'Trail & Abenteuer', posts: 69, avatar: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=128&q=80' },
-  { handle: '@HolzSpalter69', name: 'HolzSpalter69', bio: 'Ich spalte alles. Wirklich alles.', tag: 'Axt & Spaß', posts: 21, avatar: '/public/profiles/HolzSpalter69.jpg' },
+  { handle: '@HolzSpalter69', name: 'HolzSpalter69', bio: 'Ich spalte alles. Wirklich alles.', tag: 'Axt & Spaß', posts: 21, avatar: '/profiles/HolzSpalter69.jpg' },
   { handle: '@TeekesselLiebe', name: 'Teekessel Liebe', bio: 'Heiß. Dampfend. Und immer bereit.', tag: 'Tee & Wärme', posts: 33, avatar: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=128&q=80' },
   { handle: '@HalstuchHeiß', name: 'Halstuch Heiß', bio: 'Locker gebunden… aber mit Gefühl.', tag: 'Halstuch & Style', posts: 47, avatar: 'https://images.unsplash.com/photo-1629117083886-509c79515b80?auto=format&fit=crop&w=128&q=80' },
 ]
