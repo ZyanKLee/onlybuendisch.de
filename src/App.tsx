@@ -102,10 +102,10 @@ const comments = [
 ]
 
 const paywallTeasers = [
-  { label: 'Schlafsack-Chaos', emoji: '😴' },
-  { label: 'Angebrannter Topf', emoji: '🍳' },
-  { label: 'Zusammenfallendes Zelt', emoji: '⛺' },
-  { label: 'Nasse Socken am Feuer', emoji: '🧦' },
+  { label: 'Schlafsack-Action zu zweit', emoji: '😴', src: mediaUrl('schlafsaecke.mp4') },
+  { label: 'Was kommt in deine Pfanne?', emoji: '🍳', src: mediaUrl('pfanne.mp4') },
+  { label: 'Zelt-Chaos', emoji: '⛺', src: mediaUrl('zeltchaos.mp4') },
+  { label: 'Von oben bis unten naß am Feuer trocknen', emoji: '🧦', src: mediaUrl('socken.mp4') },
 ]
 
 function AprilModal({
@@ -520,13 +520,28 @@ export default function App() {
             {paywallTeasers.map((t) => (
               <div
                 key={t.label}
-                className="relative aspect-square overflow-hidden rounded-xl border border-ob-border bg-ob-card"
+                className="relative aspect-square overflow-hidden rounded-xl border border-ob-border bg-ob-card cursor-pointer group"
+                onClick={() => setModalOpen(true)}
               >
-                <div className="flex h-full flex-col items-center justify-center gap-2 p-4 text-center blur-sm">
-                  <span className="text-3xl">{t.emoji}</span>
-                  <span className="text-xs text-ob-muted">{t.label}</span>
+                {t.src && (
+                  <video
+                    src={t.src}
+                    className="absolute inset-0 h-full w-full object-cover blur-sm group-hover:blur-md transition-all duration-200"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    tabIndex={-1}
+                    aria-hidden="true"
+                  />
+                )}
+                <div className="relative z-10 h-full w-full pointer-events-none">
+                  <span className="absolute left-3 top-3 text-3xl drop-shadow-md">{t.emoji}</span>
+                  <div className="absolute left-0 right-0 bottom-0 flex items-end">
+                    <span className="mb-3 ml-3 text-xs text-ob-muted bg-ob-card/80 rounded px-2 py-0.5 shadow">{t.label}</span>
+                  </div>
                 </div>
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/55 p-2">
+                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-2 bg-black/55 p-2 pointer-events-none">
                   <Lock className="h-6 w-6 text-white" />
                   <span className="text-center text-xs font-medium text-white">Nur für Unterstützer sichtbar</span>
                 </div>
