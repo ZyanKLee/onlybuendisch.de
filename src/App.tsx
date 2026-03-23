@@ -80,7 +80,7 @@ const trending = [
     isVideo: true,
   },
   {
-    title: 'Dirty Boots – nach der Fahrt',
+    title: 'Dirty Boots – Ich zeige Dir alles nach der Fahrt',
     likes: '6.4k',
     src: mediaUrl('boots.mp4'),
     isVideo: true,
@@ -94,11 +94,11 @@ const trending = [
 ] as const
 
 const comments = [
-  '🔥 Das hat mein Leben verändert',
-  'Wann kommt mehr Knoten-Content??',
-  'Bruder… dieses Feuer 😳',
-  'Hab direkt meinen Rucksack neu gepackt',
-  'Zu wild für mich',
+  { author: 'Waldgeist99', text: '🔥 Ihr habt mein Leben verändert' },
+  { author: 'KnotenKönig', text: 'Wann kommt mehr Knoten-Content??' },
+  { author: 'FeuerFuchs', text: 'Bruder… dieses Feuer 😳' },
+  { author: 'RucksackRanger', text: 'Hab direkt meinen Rucksack neu gepackt' },
+  { author: 'WilderWilli', text: 'Der Zelt-Content ist zu wild für mich' },
 ]
 
 const paywallTeasers = [
@@ -422,14 +422,14 @@ export default function App() {
           <h2 className="font-display text-2xl font-bold text-white sm:text-3xl">Community</h2>
           <p className="mt-1 text-ob-muted">Was Unterstützer sagen</p>
           <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {comments.map((text) => (
+            {comments.map(({ author, text }) => (
               <div
-                key={text}
+                key={author + text}
                 className="rounded-xl border border-ob-border bg-ob-card px-4 py-3 text-sm text-ob-muted"
               >
                 <span className="mb-2 flex items-center gap-2 text-xs font-medium text-white">
                   <MessageCircle className="h-4 w-4 text-ob-accent" />
-                  Kommentar
+                  Kommentar von {author}
                 </span>
                 {text}
               </div>
