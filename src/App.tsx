@@ -15,43 +15,39 @@ import {
   Tent,
   X,
 } from 'lucide-react'
+
 import { useEffect, useRef, useState } from 'react'
+
+// Hilfsfunktion zum Mischen eines Arrays (Fisher-Yates)
+function shuffle<T>(array: T[]): T[] {
+  const arr = [...array]
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[arr[i], arr[j]] = [arr[j], arr[i]]
+  }
+  return arr
+}
 
 const mediaUrl = (name: string) => `${import.meta.env.BASE_URL}gifs/${name}`
 
 const creators = [
-  {
-    handle: '@HolzUndHerz',
-    name: 'Holz & Herz',
-    bio: 'Ich zeige dir, wie man es richtig macht … draußen.',
-    tag: 'Feuer & Axt',
-    posts: 128,
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=128&q=80',
-  },
-  {
-    handle: '@HalstuchQueen',
-    name: 'Halstuch Queen',
-    bio: 'Stil ist alles – auch im Wald.',
-    tag: 'Knoten & Look',
-    posts: 84,
-    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=128&q=80',
-  },
-  {
-    handle: '@RucksackRalf',
-    name: 'Rucksack Ralf',
-    bio: 'Was wirklich drin ist, zeige ich nur hier.',
-    tag: 'Gear Reveal',
-    posts: 211,
-    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=128&q=80',
-  },
-  {
-    handle: '@FeuerUndFlamme',
-    name: 'Feuer & Flamme',
-    bio: 'Heißer Content. Versprochen.',
-    tag: 'Night Sessions',
-    posts: 342,
-    avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=128&q=80',
-  },
+  { handle: '@HolzUndHerz', name: 'Holz & Herz', bio: 'Ich zeige dir, wie man es richtig macht … draußen.', tag: 'Feuer & Axt', posts: 128, avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=128&q=80' },
+  { handle: '@HalstuchQueen', name: 'Halstuch Queen', bio: 'Stil ist alles – auch im Wald.', tag: 'Knoten & Look', posts: 84, avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=128&q=80' },
+  { handle: '@RucksackRalf', name: 'Rucksack Ralf', bio: 'Was wirklich drin ist, zeige ich nur hier.', tag: 'Gear Reveal', posts: 211, avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=128&q=80' },
+  { handle: '@FeuerUndFlamme', name: 'Feuer & Flamme', bio: 'Heißer Content. Versprochen.', tag: 'Night Sessions', posts: 342, avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=128&q=80' },
+  { handle: '@AxtUndAndacht', name: 'Axt & Andacht', bio: 'Roh. Echt. Und immer am Feuer entstanden.', tag: 'Holz & Feuer', posts: 77, avatar: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=128&q=80' },
+  { handle: '@Waldpoet', name: 'Waldpoet', bio: 'Ich war die ganze Nacht draußen… und es war besser als du denkst.', tag: 'Lyrik & Lager', posts: 54, avatar: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=128&q=80' },
+  { handle: '@SockeDesSchicksals', name: 'Socke des Schicksals', bio: 'Manchmal wird’s feucht. Aber immer legendär.', tag: 'Socken & Stories', posts: 39, avatar: '/public/profiles/SockeDesSchicksals.jpg' },
+  { handle: '@TopfUndTaten', name: 'Topf & Taten', bio: 'Heiß, würzig und direkt vom Feuer.', tag: 'Outdoor-Küche', posts: 61, avatar: 'https://images.unsplash.com/photo-1773507870654-9fb937bb588f?auto=format&fit=crop&w=128&q=80' },
+  { handle: '@KnotenKalle', name: 'Knoten Kalle', bio: 'Fester wird’s nicht. Versprochen.', tag: 'Knoten & Tricks', posts: 102, avatar: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=128&q=80' },
+  { handle: '@PacklistePro', name: 'Packliste Pro', bio: 'Ich packe Dinge aus… die du nicht erwartet hast.', tag: 'Gear & Tipps', posts: 88, avatar: 'https://images.unsplash.com/photo-1573145833249-404548708ab3?auto=format&fit=crop&w=128&q=80' },
+  { handle: '@ZeltGeflüster', name: 'Zelt Geflüster', bio: 'Was nachts im Zelt passiert… bleibt normalerweise im Zelt.', tag: 'Zelt & Nacht', posts: 73, avatar: 'https://images.unsplash.com/photo-1536395155544-a3ba483e0b9b?auto=format&fit=crop&w=128&q=80' },
+  { handle: '@GlutUndGloria', name: 'Glut & Gloria', bio: 'Langsam aufgebaut. Lange gehalten.', tag: 'Feuer & Glut', posts: 57, avatar: 'https://images.unsplash.com/photo-1701849939549-d5ad4d92adbb?auto=format&fit=crop&w=128&q=80' },
+  { handle: '@RegenRomantik', name: 'Regen Romantik', bio: 'Komplett durchnässt… und ich würde es wieder tun.', tag: 'Regen & Romantik', posts: 44, avatar: 'https://images.unsplash.com/photo-1542801205-5240aa78e9d4?auto=format&fit=crop&w=128&q=80' },
+  { handle: '@TrailTiefgang', name: 'Trail Tiefgang', bio: 'Je tiefer der Schlamm, desto besser die Story.', tag: 'Trail & Abenteuer', posts: 69, avatar: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=128&q=80' },
+  { handle: '@HolzSpalter69', name: 'HolzSpalter69', bio: 'Ich spalte alles. Wirklich alles.', tag: 'Axt & Spaß', posts: 21, avatar: '/public/profiles/HolzSpalter69.jpg' },
+  { handle: '@TeekesselLiebe', name: 'Teekessel Liebe', bio: 'Heiß. Dampfend. Und immer bereit.', tag: 'Tee & Wärme', posts: 33, avatar: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=128&q=80' },
+  { handle: '@HalstuchHeiß', name: 'Halstuch Heiß', bio: 'Locker gebunden… aber mit Gefühl.', tag: 'Halstuch & Style', posts: 47, avatar: 'https://images.unsplash.com/photo-1629117083886-509c79515b80?auto=format&fit=crop&w=128&q=80' },
 ]
 
 const trending = [
@@ -74,7 +70,7 @@ const trending = [
     isVideo: true,
   },
   {
-    title: 'Inside my tent – no parents allowed 😏',
+    title: 'In unserem Zelt – wenn die Gruppenleiter schlafen 😏',
     likes: '7.2k',
     src: mediaUrl('zelt.mp4'),
     isVideo: true,
@@ -103,7 +99,7 @@ const comments = [
 
 const paywallTeasers = [
   { label: 'Schlafsack-Action zu zweit', emoji: '😴', src: mediaUrl('schlafsaecke.mp4') },
-  { label: 'Was kommt in deine Pfanne?', emoji: '🍳', src: mediaUrl('pfanne.mp4') },
+  { label: 'Was kommt rein wenn sie heiß ist?', emoji: '🍳', src: mediaUrl('pfanne.mp4') },
   { label: 'Zelt-Chaos', emoji: '⛺', src: mediaUrl('zeltchaos.mp4') },
   { label: 'Von oben bis unten naß am Feuer trocknen', emoji: '🧦', src: mediaUrl('socken.mp4') },
 ]
@@ -186,6 +182,21 @@ function AprilModal({
 export default function App() {
   const [modalOpen, setModalOpen] = useState(false)
   const modalRef = useRef<HTMLDivElement>(null)
+  const [creatorsToShow, setCreatorsToShow] = useState(8)
+
+  // Responsive: 8 creators only on large (lg, >=1024px), 4 otherwise
+  useEffect(() => {
+    function updateCreatorsToShow() {
+      if (window.innerWidth >= 1024) {
+        setCreatorsToShow(8)
+      } else {
+        setCreatorsToShow(4)
+      }
+    }
+    updateCreatorsToShow()
+    window.addEventListener('resize', updateCreatorsToShow)
+    return () => window.removeEventListener('resize', updateCreatorsToShow)
+  }, [])
 
   useEffect(() => {
     const onClickCapture = (e: MouseEvent) => {
@@ -261,7 +272,7 @@ export default function App() {
                 Exklusiv für den Bund
               </p>
               <h1 className="font-display text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
-                Exklusive Inhalte aus dem bündischen Leben
+                Die heißesten Inhalte aus dem bündischen Leben
               </h1>
               <p className="mt-4 text-lg text-ob-muted">
                 Unterstütze deine Lieblings-Creator und entdecke Inhalte, die du so noch nie gesehen hast.
@@ -317,10 +328,10 @@ export default function App() {
             <span className="text-sm font-medium text-ob-accent">Alle anzeigen</span>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {creators.map((c) => (
+            {shuffle(creators).slice(0, creatorsToShow).map((c) => (
               <div
                 key={c.handle}
-                className="group rounded-2xl border border-ob-border bg-ob-card p-4 transition hover:border-ob-accent/40"
+                className="group flex flex-col rounded-2xl border border-ob-border bg-ob-card p-4 transition hover:border-ob-accent/40 h-full"
               >
                 <div className="flex items-start gap-3">
                   <div className="relative">
@@ -337,7 +348,7 @@ export default function App() {
                   </div>
                 </div>
                 <p className="mt-3 line-clamp-2 text-sm text-ob-muted">{c.bio}</p>
-                <div className="mt-4 flex items-center justify-between text-xs text-ob-muted">
+                <div className="mt-auto flex items-center justify-between text-xs text-ob-muted pt-4">
                   <span className="rounded-full bg-ob-surface px-2 py-0.5 font-medium text-emerald-200/90">{c.tag}</span>
                   <span>{c.posts} Posts</span>
                 </div>
@@ -362,7 +373,7 @@ export default function App() {
               {trending.map((item) => (
                 <div
                   key={item.title}
-                  className="group overflow-hidden rounded-2xl border border-ob-border bg-ob-card"
+                  className="group overflow-hidden rounded-2xl border border-ob-border bg-ob-card h-full flex flex-col"
                 >
                   <div className="relative aspect-video">
                     {item.isVideo ? (
@@ -402,9 +413,9 @@ export default function App() {
                       Premium
                     </span>
                   </div>
-                  <div className="p-4">
+                  <div className="p-4 flex flex-col flex-1">
                     <h3 className="font-medium leading-snug text-white">{item.title}</h3>
-                    <div className="mt-3 flex items-center justify-between text-sm text-ob-muted">
+                    <div className="mt-auto flex items-center justify-between text-sm text-ob-muted pt-3">
                       <span className="inline-flex items-center gap-1">
                         <Heart className="h-4 w-4 text-rose-400" />
                         {item.likes}
