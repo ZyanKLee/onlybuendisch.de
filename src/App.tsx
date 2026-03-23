@@ -334,7 +334,6 @@ export default function App() {
                   muted
                   playsInline
                   webkit-playsinline="true"
-                  controls
                   preload="auto"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-ob-bg/80 to-transparent" />
@@ -417,7 +416,6 @@ export default function App() {
                         muted
                         playsInline
                         webkit-playsinline="true"
-                        controls
                         preload="metadata"
                       />
                     ) : (
@@ -578,7 +576,6 @@ export default function App() {
                     muted
                     playsInline
                     webkit-playsinline="true"
-                    controls
                     tabIndex={-1}
                     aria-hidden="true"
                   />
