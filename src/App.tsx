@@ -95,6 +95,30 @@ const comments = [
   { author: 'FeuerFuchs', text: 'Bruder… dieses Feuer 😳' },
   { author: 'RucksackRanger', text: 'Hab direkt meinen Rucksack neu gepackt' },
   { author: 'WilderWilli', text: 'Der Zelt-Content ist zu wild für mich' },
+
+  { author: 'GlutGourmet', text: 'Das war das heißeste, was ich je gesehen habe 🔥' },
+  { author: 'HalstuchHeld', text: 'Endlich jemand, der weiß, wie man richtig bindet' },
+  { author: 'PfadfinderPaul', text: 'Ich dachte erst das ist ein Witz… jetzt bin ich hooked' },
+  { author: 'Nachtwache', text: 'Ich hab mir das Feuer 2 Stunden angeschaut. Keine Reue.' },
+  { author: 'TeekesselTom', text: 'Dieser Dampf… ich kann das fast riechen' },
+
+  { author: 'ZeltZorro', text: 'Okay aber… warum ist das Zelt so gemütlich??' },
+  { author: 'FahrtenFred', text: 'Das bringt mich direkt auf Fahrt 😭' },
+  { author: 'KochKlaus', text: 'Dieser Eintopf hat mehr Charakter als ich' },
+  { author: 'MatschMax', text: 'Die Boots… absoluter Endgegner' },
+  { author: 'SippenSascha', text: 'Ich hab meiner Sippe direkt den Link geschickt' },
+
+  { author: 'KompassKarl', text: 'Ich wollte nur kurz schauen… jetzt ist es 2 Uhr nachts' },
+  { author: 'FeuerUndFlammeFan', text: 'Bitte mehr Nacht-Content 🔥' },
+  { author: 'KnotenNoob', text: 'Ich hab’s 5x probiert und krieg’s immer noch nicht hin 😭' },
+  { author: 'OutdoorOlli', text: 'Das ist illegal gut aufgebaut für ein Lagerfeuer' },
+  { author: 'Wegfinder', text: 'Ich bin emotional nicht bereit für so viel Qualität' },
+
+  { author: 'RegenRalf', text: 'Komplett durchnässt… fühl ich' },
+  { author: 'AxtAnton', text: 'Dieser Holz-Content trifft anders 🪓' },
+  { author: 'SockenSammler', text: 'Endlich Content für echte Kenner' },
+  { author: 'LagerfeuerLena', text: 'Ich hab das meinem Freund gezeigt. Jetzt wollen wir\'s auch tun.' },
+  { author: 'FuchsImBau', text: 'Das ist gefährlich… ich will sofort auf Fahrt' },
 ]
 
 const paywallTeasers = [
@@ -183,19 +207,26 @@ export default function App() {
   const [modalOpen, setModalOpen] = useState(false)
   const modalRef = useRef<HTMLDivElement>(null)
   const [creatorsToShow, setCreatorsToShow] = useState(8)
+  const [commentsToShow, setCommentsToShow] = useState(6)
 
   // Responsive: 8 creators only on large (lg, >=1024px), 4 otherwise
+  // Comments: 6 on >=640px, 3 on <640px
   useEffect(() => {
-    function updateCreatorsToShow() {
+    function updateResponsiveCounts() {
       if (window.innerWidth >= 1024) {
         setCreatorsToShow(8)
       } else {
         setCreatorsToShow(4)
       }
+      if (window.innerWidth < 640) {
+        setCommentsToShow(3)
+      } else {
+        setCommentsToShow(6)
+      }
     }
-    updateCreatorsToShow()
-    window.addEventListener('resize', updateCreatorsToShow)
-    return () => window.removeEventListener('resize', updateCreatorsToShow)
+    updateResponsiveCounts()
+    window.addEventListener('resize', updateResponsiveCounts)
+    return () => window.removeEventListener('resize', updateResponsiveCounts)
   }, [])
 
   useEffect(() => {
@@ -433,7 +464,7 @@ export default function App() {
           <h2 className="font-display text-2xl font-bold text-white sm:text-3xl">Community</h2>
           <p className="mt-1 text-ob-muted">Was Unterstützer sagen</p>
           <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {comments.map(({ author, text }) => (
+            {shuffle(comments).slice(0, commentsToShow).map(({ author, text }) => (
               <div
                 key={author + text}
                 className="rounded-xl border border-ob-border bg-ob-card px-4 py-3 text-sm text-ob-muted"
