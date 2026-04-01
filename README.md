@@ -1,73 +1,83 @@
-# React + TypeScript + Vite
+# OnlyBuendisch.de
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Satirische Parodie-Website im Stil von OnlyFans – aber für bündischen und Outdoor-Content.  
+Lagerfeuer, Knoten, Rucksäcke, Zelte. Vollständig jugendfrei.
 
-Currently, two official plugins are available:
+## Tech-Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React 19** + **TypeScript**
+- **Vite** als Build-Tool
+- **Tailwind CSS v4** (via Vite-Plugin)
+- **Framer Motion** für Animationen
+- **Lucide React** für Icons
+- **Plausible Analytics** (datenschutzfreundlich)
 
-## React Compiler
+## Voraussetzungen
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Node.js ≥ 18
+- npm
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Entwicklung
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+Öffne [http://localhost:5173](http://localhost:5173) im Browser.
+
+## Build
+
+```bash
+npm run build
+```
+
+Das fertige Bundle landet in `dist/`.
+
+## Vorschau des Builds
+
+```bash
+npm run preview
+```
+
+## Platzhalter-GIFs generieren
+
+Die Seite erwartet kurze Loop-Videos/-GIFs unter `public/gifs/`. Prozedurale Platzhalter (kein echtes Videomaterial nötig) lassen sich mit folgendem Skript erzeugen:
+
+```bash
+npm run generate:gifs
+```
+
+Die Dateien werden nach `public/gifs/` geschrieben. Für echte Video-Clips können die Prompts in [GIF.md](GIF.md) als Vorlage für KI-Video-Tools (Runway, Pika, Kling u. Ä.) verwendet werden.
+
+## Linting
+
+```bash
+npm run lint
+```
+
+## Projektstruktur
+
+```
+public/
+  fonts/        – Schriftarten & fonts.css
+  gifs/         – Video-Clips / GIF-Loops (nicht im Repo)
+  images/       – Creator-Avatare (Unsplash-Fotos)
+  profiles/     – Eigene Profilbilder
+scripts/
+  generate-gif-placeholders.mjs  – Prozeduraler GIF-Generator
+src/
+  App.tsx       – Gesamte App-Logik und UI
+  main.tsx      – React-Einstiegspunkt
+  index.css     – Globale Styles
+GIF.md          – KI-Prompts für Video-/GIF-Erstellung
+```
+
+## Lizenz
+
+Dieses Projekt ist eine Satire und dient ausschließlich humoristischen Zwecken.
