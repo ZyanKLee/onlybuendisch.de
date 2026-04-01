@@ -4,7 +4,7 @@ declare global {
     plausible?: (event: string, options?: { props?: Record<string, any> }) => void;
   }
 }
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, LazyMotion, domAnimation, m } from 'framer-motion'
 import {
   Backpack,
   BadgeCheck,
@@ -138,7 +138,7 @@ function ImpressumModal({ open, onClose }: { open: boolean; onClose: () => void 
   return (
     <AnimatePresence>
       {open && (
-        <motion.div
+        <m.div
           role="dialog"
           aria-modal="true"
           aria-labelledby="impressum-title"
@@ -147,7 +147,7 @@ function ImpressumModal({ open, onClose }: { open: boolean; onClose: () => void 
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <motion.button
+          <m.button
             type="button"
             aria-label="Schließen"
             className="absolute inset-0 bg-black/75 backdrop-blur-sm"
@@ -156,7 +156,7 @@ function ImpressumModal({ open, onClose }: { open: boolean; onClose: () => void 
             exit={{ opacity: 0 }}
             onClick={onClose}
           />
-          <motion.div
+          <m.div
             className="relative z-10 w-full max-w-md overflow-hidden rounded-2xl border border-ob-border bg-gradient-to-b from-ob-card to-ob-surface p-8 shadow-2xl shadow-emerald-950/50"
             initial={{ scale: 0.94, opacity: 0, y: 12 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -197,8 +197,8 @@ function ImpressumModal({ open, onClose }: { open: boolean; onClose: () => void 
             >
               Schließen
             </button>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   )
@@ -208,7 +208,7 @@ function UeberUnsModal({ open, onClose }: { open: boolean; onClose: () => void }
   return (
     <AnimatePresence>
       {open && (
-        <motion.div
+        <m.div
           role="dialog"
           aria-modal="true"
           aria-labelledby="ueber-uns-title"
@@ -217,7 +217,7 @@ function UeberUnsModal({ open, onClose }: { open: boolean; onClose: () => void }
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <motion.button
+          <m.button
             type="button"
             aria-label="Schließen"
             className="absolute inset-0 bg-black/75 backdrop-blur-sm"
@@ -226,7 +226,7 @@ function UeberUnsModal({ open, onClose }: { open: boolean; onClose: () => void }
             exit={{ opacity: 0 }}
             onClick={onClose}
           />
-          <motion.div
+          <m.div
             className="relative z-10 w-full max-w-md overflow-hidden rounded-2xl border border-ob-border bg-gradient-to-b from-ob-card to-ob-surface p-8 shadow-2xl shadow-emerald-950/50"
             initial={{ scale: 0.94, opacity: 0, y: 12 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -271,8 +271,8 @@ function UeberUnsModal({ open, onClose }: { open: boolean; onClose: () => void }
             >
               Schließen
             </button>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   )
@@ -290,7 +290,7 @@ function AprilModal({
   return (
     <AnimatePresence>
       {open && (
-        <motion.div
+        <m.div
           ref={containerRef}
           role="dialog"
           aria-modal="true"
@@ -300,7 +300,7 @@ function AprilModal({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <motion.button
+          <m.button
             type="button"
             aria-label="Schließen"
             className="absolute inset-0 bg-black/75 backdrop-blur-sm"
@@ -309,7 +309,7 @@ function AprilModal({
             exit={{ opacity: 0 }}
             onClick={onClose}
           />
-          <motion.div
+          <m.div
             className="relative z-10 w-full max-w-md overflow-hidden rounded-2xl border border-ob-border bg-gradient-to-b from-ob-card to-ob-surface p-8 shadow-2xl shadow-emerald-950/50"
             initial={{ scale: 0.94, opacity: 0, y: 12 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -356,8 +356,8 @@ function AprilModal({
                 Schließen
               </button>
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   )
@@ -421,7 +421,7 @@ export default function App() {
   }, [modalOpen]);
 
   return (
-    <>
+    <LazyMotion features={domAnimation}>
       <div id="main-content" className="relative min-h-svh">
         <header className="sticky top-0 z-50 border-b border-ob-border/80 bg-ob-bg/85 backdrop-blur-md">
           <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
@@ -809,6 +809,6 @@ export default function App() {
         open={ueberUnsOpen}
         onClose={() => setUeberUnsOpen(false)}
       />
-    </>
+    </LazyMotion>
   )
 }
