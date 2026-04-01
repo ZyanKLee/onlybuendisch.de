@@ -252,14 +252,22 @@ function UeberUnsModal({ open, onClose }: { open: boolean; onClose: () => void }
               <span className="font-medium text-white">Burg Hohenkrähen</span> entstanden.
             </p>
             <p className="mt-3 text-[15px] leading-relaxed text-ob-muted">
-              Ein besonderer Dank geht an den{' '}
+              Ein besonderer Dank geht an die{' '}
               <span className="font-semibold text-ob-accent">Horte Albuesta</span>{' '}
               – ohne euch wäre das nie passiert. 🔥
             </p>
+            <a
+              href="https://burg.grauer-reiter.de/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-8 flex w-full items-center justify-center rounded-xl bg-ob-accent py-3 text-sm font-semibold text-ob-bg transition hover:brightness-110"
+            >
+              Zur Burg Hohenkrähen
+            </a>
             <button
               type="button"
               onClick={onClose}
-              className="mt-8 flex w-full items-center justify-center rounded-xl border border-ob-border bg-ob-surface py-3 text-sm font-semibold text-white transition hover:bg-white/5"
+              className="mt-3 flex w-full items-center justify-center rounded-xl border border-ob-border bg-ob-surface py-3 text-sm font-semibold text-white transition hover:bg-white/5"
             >
               Schließen
             </button>
@@ -330,7 +338,7 @@ function AprilModal({
             </p>
             <div className="mt-8 flex flex-col gap-3">
               <a
-                href="https://www.grauer-reiter.de"
+                href="https://burg.grauer-reiter.de"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex w-full items-center justify-center gap-2 rounded-xl bg-ob-accent py-3.5 text-sm font-semibold text-ob-bg transition hover:brightness-110 text-center"
