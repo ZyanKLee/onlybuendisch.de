@@ -134,6 +134,142 @@ const paywallTeasers = [
   { label: 'Von oben bis unten naß am Feuer trocknen', emoji: '🧦', src: mediaUrl('socken.mp4') },
 ]
 
+function ImpressumModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+  return (
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="impressum-title"
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <motion.button
+            type="button"
+            aria-label="Schließen"
+            className="absolute inset-0 bg-black/75 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+          />
+          <motion.div
+            className="relative z-10 w-full max-w-md overflow-hidden rounded-2xl border border-ob-border bg-gradient-to-b from-ob-card to-ob-surface p-8 shadow-2xl shadow-emerald-950/50"
+            initial={{ scale: 0.94, opacity: 0, y: 12 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.96, opacity: 0, y: 8 }}
+            transition={{ type: 'spring', damping: 26, stiffness: 320 }}
+          >
+            <button
+              type="button"
+              onClick={onClose}
+              className="absolute right-4 top-4 rounded-lg p-1.5 text-ob-muted transition hover:bg-white/5 hover:text-white"
+            >
+              <X className="h-5 w-5" aria-hidden />
+            </button>
+            <h2 id="impressum-title" className="font-display text-2xl font-bold tracking-tight text-white">
+              Impressum
+            </h2>
+            <p className="mt-1 text-xs uppercase tracking-wider text-ob-muted/60">Angaben gemäß § 5 TMG</p>
+            <div className="mt-4 space-y-1 text-sm text-ob-muted">
+              <p className="font-semibold text-white">Phillip Stockmann</p>
+              <p>Stuttgart</p>
+            </div>
+            <div className="mt-4 text-sm text-ob-muted">
+              <span className="font-medium text-white">E-Mail: </span>
+              <a
+                href="mailto:mail@phillip-stockmann.de"
+                className="text-ob-accent hover:underline"
+              >
+                mail@phillip-stockmann.de
+              </a>
+            </div>
+            <p className="mt-6 text-xs text-ob-muted/60">
+              Diese Website ist ein Aprilscherz / eine Parodie und dient ausschließlich satirischen Zwecken.
+            </p>
+            <button
+              type="button"
+              onClick={onClose}
+              className="mt-6 flex w-full items-center justify-center rounded-xl border border-ob-border bg-ob-surface py-3 text-sm font-semibold text-white transition hover:bg-white/5"
+            >
+              Schließen
+            </button>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
+}
+
+function UeberUnsModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+  return (
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="ueber-uns-title"
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <motion.button
+            type="button"
+            aria-label="Schließen"
+            className="absolute inset-0 bg-black/75 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+          />
+          <motion.div
+            className="relative z-10 w-full max-w-md overflow-hidden rounded-2xl border border-ob-border bg-gradient-to-b from-ob-card to-ob-surface p-8 shadow-2xl shadow-emerald-950/50"
+            initial={{ scale: 0.94, opacity: 0, y: 12 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.96, opacity: 0, y: 8 }}
+            transition={{ type: 'spring', damping: 26, stiffness: 320 }}
+          >
+            <button
+              type="button"
+              onClick={onClose}
+              className="absolute right-4 top-4 rounded-lg p-1.5 text-ob-muted transition hover:bg-white/5 hover:text-white"
+            >
+              <X className="h-5 w-5" aria-hidden />
+            </button>
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-ob-accent-dim px-3 py-1 text-sm font-medium text-ob-accent">
+              <Heart className="h-4 w-4" />
+              Danke!
+            </div>
+            <h2 id="ueber-uns-title" className="font-display text-2xl font-bold tracking-tight text-white">
+              Über uns
+            </h2>
+            <p className="mt-4 text-[15px] leading-relaxed text-ob-muted">
+              Die Idee zu OnlyBuendisch.de ist an einem lustigen Abend auf der{' '}
+              <span className="font-medium text-white">Burg Hohenkrähen</span> entstanden.
+            </p>
+            <p className="mt-3 text-[15px] leading-relaxed text-ob-muted">
+              Ein besonderer Dank geht an den{' '}
+              <span className="font-semibold text-ob-accent">Horte Albuesta</span>{' '}
+              – ohne euch wäre das nie passiert. 🔥
+            </p>
+            <button
+              type="button"
+              onClick={onClose}
+              className="mt-8 flex w-full items-center justify-center rounded-xl border border-ob-border bg-ob-surface py-3 text-sm font-semibold text-white transition hover:bg-white/5"
+            >
+              Schließen
+            </button>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
+}
+
 function AprilModal({
   open,
   onClose,
@@ -221,6 +357,8 @@ function AprilModal({
 
 export default function App() {
   const [modalOpen, setModalOpen] = useState(false)
+  const [impressumOpen, setImpressumOpen] = useState(false)
+  const [ueberUnsOpen, setUeberUnsOpen] = useState(false)
   const modalRef = useRef<HTMLDivElement>(null)
   const [creatorsToShow, setCreatorsToShow] = useState(8)
   const [commentsToShow, setCommentsToShow] = useState(6)
@@ -627,28 +765,41 @@ export default function App() {
           </div>
         </section>
 
-        <footer className="border-t border-ob-border py-10">
-          <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-4 sm:flex-row sm:px-6">
-            <span className="font-display text-lg font-bold text-white">
-              Only<span className="text-ob-accent">Buendisch</span>
-            </span>
-            <nav className="flex flex-wrap justify-center gap-6 text-sm text-ob-muted">
-              <span>Über uns</span>
-              <span>Datenschutz</span>
-              <span>Impressum</span>
-              <span>Kontakt</span>
-            </nav>
-          </div>
-          <p className="mt-6 text-center text-xs text-ob-muted/60">
-            © {new Date().getFullYear()} OnlyBuendisch · Parodie / Aprilscherz · jugendfrei & bündisch
-          </p>
-        </footer>
       </div>
+
+      <footer className="border-t border-ob-border py-10">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-4 sm:flex-row sm:px-6">
+          <span className="font-display text-lg font-bold text-white">
+            Only<span className="text-ob-accent">Buendisch</span>
+          </span>
+          <nav className="flex flex-wrap justify-center gap-6 text-sm text-ob-muted">
+            <button type="button" onClick={() => { setUeberUnsOpen(true); if (typeof window !== 'undefined' && typeof window.plausible === 'function') { window.plausible('ueberUnsModalActivated'); } }} className="transition hover:text-white">
+              Über uns
+            </button>
+            <span>Datenschutz</span>
+            <button type="button" onClick={() => { setImpressumOpen(true); if (typeof window !== 'undefined' && typeof window.plausible === 'function') { window.plausible('impressumModalActivated'); } }} className="transition hover:text-white">
+              Impressum
+            </button>
+            <span>Kontakt</span>
+          </nav>
+        </div>
+        <p className="mt-6 text-center text-xs text-ob-muted/60">
+          © {new Date().getFullYear()} OnlyBuendisch · Parodie / Aprilscherz · jugendfrei & bündisch
+        </p>
+      </footer>
 
       <AprilModal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
         containerRef={modalRef}
+      />
+      <ImpressumModal
+        open={impressumOpen}
+        onClose={() => setImpressumOpen(false)}
+      />
+      <UeberUnsModal
+        open={ueberUnsOpen}
+        onClose={() => setUeberUnsOpen(false)}
       />
     </>
   )
