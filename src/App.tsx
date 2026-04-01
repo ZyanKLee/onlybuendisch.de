@@ -457,6 +457,8 @@ export default function App() {
               src="/images/photo-1504280390367-361c6d9f38f4.jpg"
               alt=""
               className="h-full w-full object-cover opacity-40"
+              fetchPriority="high"
+              decoding="sync"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-ob-bg via-ob-bg/90 to-transparent" />
             <div className="absolute inset-0 bg-gradient-to-t from-ob-bg via-transparent to-ob-bg/40" />
