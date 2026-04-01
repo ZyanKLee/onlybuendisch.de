@@ -125,6 +125,9 @@ const comments = [
   { author: 'SockenSammler', text: 'Endlich Content für echte Kenner' },
   { author: 'LagerfeuerLena', text: 'Ich hab das meinem Freund gezeigt. Jetzt wollen wir\'s auch tun.' },
   { author: 'FuchsImBau', text: 'Das ist gefährlich… ich will sofort auf Fahrt' },
+
+  { author: 'GlutGina', text: 'Ich hab das Feuer 3 Nächte hintereinander angeschaut 🔥' },
+  { author: 'HeimScheisserle', text: 'Endlich muss ich nicht mehr aufs Lager fahren um alles zu erleben' },
 ]
 
 const paywallTeasers = [
