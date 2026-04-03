@@ -16,13 +16,12 @@ import {
   Play,
   Search,
   ShieldCheck,
-  Sparkles,
   Star,
   Tent,
   X,
 } from 'lucide-react'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // Hilfsfunktion zum Mischen eines Arrays (Fisher-Yates)
 function shuffle<T>(array: T[]): T[] {
@@ -281,6 +280,7 @@ function UeberUnsModal({ open, onClose }: { open: boolean; onClose: () => void }
   )
 }
 
+/* APRILSCHERZ DEAKTIVIERT – AprilModal-Komponente auskommentiert
 function AprilModal({
   open,
   onClose,
@@ -365,12 +365,13 @@ function AprilModal({
     </AnimatePresence>
   )
 }
+APRILSCHERZ DEAKTIVIERT */
 
 export default function App() {
-  const [modalOpen, setModalOpen] = useState(false)
+  // APRILSCHERZ DEAKTIVIERT: const [modalOpen, setModalOpen] = useState(false)
   const [impressumOpen, setImpressumOpen] = useState(false)
   const [ueberUnsOpen, setUeberUnsOpen] = useState(false)
-  const modalRef = useRef<HTMLDivElement>(null)
+  // APRILSCHERZ DEAKTIVIERT: const modalRef = useRef<HTMLDivElement>(null)
   const [creatorsToShow, setCreatorsToShow] = useState(8)
   const [commentsToShow, setCommentsToShow] = useState(6)
 
@@ -741,8 +742,7 @@ export default function App() {
             {paywallTeasers.map((t) => (
               <div
                 key={t.label}
-                className="relative aspect-square overflow-hidden rounded-xl border border-ob-border bg-ob-card cursor-pointer group"
-                onClick={() => setModalOpen(true)}
+                className="relative aspect-square overflow-hidden rounded-xl border border-ob-border bg-ob-card group"
               >
                 {t.src && (
                   <video
