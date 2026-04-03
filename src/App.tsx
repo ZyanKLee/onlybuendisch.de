@@ -474,10 +474,10 @@ export default function App() {
                 Und was nun?
               </p>
               <h1 className="font-display text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
-                OnlyBuendisch.de war ein Aprilscherz 2026!
+                OnlyBuendisch.de war ein Aprilscherz!
               </h1>
               <p className="mt-4 text-lg text-ob-muted">
-                Nun, da der 1. April vorbei ist, möchte ich euch allen dafür danken, dass ihr diesen Spaß mitgemacht habt. Über 250 Besucher aus ganz Europa haben OnlyBuendisch.de am 1. April besucht – und ich hoffe, ihr hattet genauso viel Spaß wie ich beim Erstellen dieser Seite! 😊
+                Nun, da der 1. April 2026 vorbei ist, möchte ich euch allen dafür danken, dass ihr diesen Spaß mitgemacht habt. Über 250 Besucher aus ganz Europa haben OnlyBuendisch.de am 1. April besucht – und ich hoffe, ihr hattet genauso viel Spaß wie ich beim Erstellen dieser Seite! 😊
               </p>
               <p className="mt-4 text-lg text-ob-muted">
                 Hiermit endet dieses Projekt - oder etwa nicht? 😉
