@@ -394,34 +394,35 @@ export default function App() {
     return () => window.removeEventListener('resize', updateResponsiveCounts)
   }, [])
 
-  useEffect(() => {
-    const onClickCapture = (e: MouseEvent) => {
-      if (modalOpen) return;
-      if (modalRef.current?.contains(e.target as Node)) return;
-      // Modal nicht öffnen, wenn auf ein Video oder Overlay davon geklickt wird
-      let node = e.target as HTMLElement | null;
-      while (node) {
-        // Wenn ein Video-Element in der Kette ist, abbrechen
-        if (node.tagName === 'VIDEO') return;
-        // Wenn ein Overlay-Element (z.B. .aspect-video) ein Video enthält, abbrechen
-        if (node.classList && node.classList.contains('aspect-video')) {
-          if (node.querySelector('video')) return;
-        }
-        node = node.parentElement;
-      }
-      // Modal nur öffnen, wenn das Ziel im Haupt-Content liegt
-      const mainContent = document.getElementById('main-content');
-      if (!mainContent) return;
-      if (!mainContent.contains(e.target as Node)) return;
-      e.preventDefault();
-      setModalOpen(true);
-      if (typeof window !== 'undefined' && typeof window.plausible === 'function') {
-        window.plausible('aprilModalActivated');
-      }
-    };
-    document.addEventListener('click', onClickCapture, true);
-    return () => document.removeEventListener('click', onClickCapture, true);
-  }, [modalOpen]);
+  // APRILSCHERZ DEAKTIVIERT – useEffect zum Aktivieren des AprilModals auskommentiert
+  // useEffect(() => {
+  //   const onClickCapture = (e: MouseEvent) => {
+  //     if (modalOpen) return;
+  //     if (modalRef.current?.contains(e.target as Node)) return;
+  //     // Modal nicht öffnen, wenn auf ein Video oder Overlay davon geklickt wird
+  //     let node = e.target as HTMLElement | null;
+  //     while (node) {
+  //       // Wenn ein Video-Element in der Kette ist, abbrechen
+  //       if (node.tagName === 'VIDEO') return;
+  //       // Wenn ein Overlay-Element (z.B. .aspect-video) ein Video enthält, abbrechen
+  //       if (node.classList && node.classList.contains('aspect-video')) {
+  //         if (node.querySelector('video')) return;
+  //       }
+  //       node = node.parentElement;
+  //     }
+  //     // Modal nur öffnen, wenn das Ziel im Haupt-Content liegt
+  //     const mainContent = document.getElementById('main-content');
+  //     if (!mainContent) return;
+  //     if (!mainContent.contains(e.target as Node)) return;
+  //     e.preventDefault();
+  //     setModalOpen(true);
+  //     if (typeof window !== 'undefined' && typeof window.plausible === 'function') {
+  //       window.plausible('aprilModalActivated');
+  //     }
+  //   };
+  //   document.addEventListener('click', onClickCapture, true);
+  //   return () => document.removeEventListener('click', onClickCapture, true);
+  // }, [modalOpen]);
 
   return (
     <LazyMotion features={domAnimation}>
@@ -470,13 +471,19 @@ export default function App() {
             <div className="max-w-xl">
               <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-ob-border bg-ob-surface/80 px-3 py-1 text-xs font-medium uppercase tracking-wider text-ob-accent">
                 <Star className="h-3.5 w-3.5" />
-                Exklusiv für den Bund
+                Und was nun?
               </p>
               <h1 className="font-display text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
-                Die heißesten Inhalte aus dem bündischen Leben
+                OnlyBuendisch.de war ein Aprilscherz 2026!
               </h1>
               <p className="mt-4 text-lg text-ob-muted">
-                Unterstütze deine Lieblings-Creator und entdecke Inhalte, die du so noch nie gesehen hast.
+                Nun, da der 1. April vorbei ist, möchte ich euch allen dafür danken, dass ihr diesen Spaß mitgemacht habt. Über 250 Besucher aus ganz Europa haben OnlyBuendisch.de am 1. April besucht – und ich hoffe, ihr hattet genauso viel Spaß wie ich beim Erstellen dieser Seite! 😊
+              </p>
+              <p className="mt-4 text-lg text-ob-muted">
+                Hiermit endet dieses Projekt - oder etwa nicht? 😉
+              </p>
+              <p className="mt-4 text-lg text-ob-muted">
+                Ich habe eine Idee, was ich nun mit der Domain machen möchte und würde mich freuen, wenn ihr in den nächsten Wochen immer wieder mal vorbeischaut. Es könnte sich lohnen... 🔥
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <span className="inline-flex items-center gap-2 rounded-xl bg-ob-accent px-5 py-3 text-sm font-semibold text-ob-bg">
@@ -801,11 +808,12 @@ export default function App() {
         </p>
       </footer>
 
+      {/* APRILSCHERZ DEAKTIVIERT
       <AprilModal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
         containerRef={modalRef}
-      />
+      /> */}
       <ImpressumModal
         open={impressumOpen}
         onClose={() => setImpressumOpen(false)}
