@@ -372,6 +372,7 @@ export default function App() {
   const [impressumOpen, setImpressumOpen] = useState(false)
   const [ueberUnsOpen, setUeberUnsOpen] = useState(false)
   // APRILSCHERZ DEAKTIVIERT: const modalRef = useRef<HTMLDivElement>(null)
+  const [paywallUnlocked, setPaywallUnlocked] = useState<boolean[]>(() => new Array(paywallTeasers.length).fill(false))
   const [creatorsToShow, setCreatorsToShow] = useState(8)
   const [commentsToShow, setCommentsToShow] = useState(6)
 
@@ -739,15 +740,22 @@ export default function App() {
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {paywallTeasers.map((t) => (
+            {paywallTeasers.map((t, i) => (
               <div
                 key={t.label}
                 className="relative aspect-square overflow-hidden rounded-xl border border-ob-border bg-ob-card group"
+                onClick={() => {
+                  setPaywallUnlocked((prev) => {
+                    const next = [...prev]
+                    next[i] = true
+                    return next
+                  })
+                }}
               >
                 {t.src && (
                   <video
                     src={t.src}
-                    className="absolute inset-0 h-full w-full object-cover blur-sm group-hover:blur-md transition-all duration-200"
+                    className={`absolute inset-0 h-full w-full object-cover transition-all duration-200 ${paywallUnlocked[i] ? '' : 'blur-sm group-hover:blur-md'}`}
                     autoPlay
                     loop
                     muted
@@ -763,10 +771,12 @@ export default function App() {
                     <span className="mb-3 ml-3 text-xs text-ob-muted bg-ob-card/80 rounded px-2 py-0.5 shadow">{t.label}</span>
                   </div>
                 </div>
-                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-2 bg-black/55 p-2 pointer-events-none">
-                  <Lock className="h-6 w-6 text-white" />
-                  <span className="text-center text-xs font-medium text-white">Nur für Unterstützer sichtbar</span>
-                </div>
+                {!paywallUnlocked[i] && (
+                  <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-2 bg-black/55 p-2 pointer-events-none">
+                    <Lock className="h-6 w-6 text-white" />
+                    <span className="text-center text-xs font-medium text-white">Nur für Unterstützer sichtbar</span>
+                  </div>
+                )}
               </div>
             ))}
           </div>
