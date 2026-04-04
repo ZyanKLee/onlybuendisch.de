@@ -36,3 +36,42 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Deploy to external server via SCP/SSH
+        if: github.ref == 'refs/heads/main'
+        env:
+          SSH_PUSH_KEY: ${{ secrets.SSH_PUSH_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          REMOTE_PATH: ${{ secrets.REMOTE_PATH }}
+        run: |
+          set -euo pipefail
+          printf '%s\n' "$SSH_PUSH_KEY" > deploy_key
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > known_hosts
+          chmod 600 deploy_key known_hosts
+
+          # create remote staging dir
+          ssh -o UserKnownHostsFile=known_hosts -i deploy_key "$FTP_USER@$FTP_HOST" "mkdir -p ${REMOTE_PATH}_new"
+
+          # upload build output
+          if [ -d dist ]; then
+            scp -r -o UserKnownHostsFile=known_hosts -i deploy_key dist/* "$FTP_USER@$FTP_HOST:${REMOTE_PATH}_new/"
+          else
+            echo "dist directory not found; aborting remote deploy"
+            exit 1
+          fi
+
+          # optional extra files
+          if [ -f .htaccess ]; then
+            scp -o UserKnownHostsFile=known_hosts -i deploy_key .htaccess "$FTP_USER@$FTP_HOST:${REMOTE_PATH}_new/" || true
+          fi
+          if [ -d .well-known ]; then
+            scp -r -o UserKnownHostsFile=known_hosts -i deploy_key .well-known "$FTP_USER@$FTP_HOST:${REMOTE_PATH}_new/" || true
+          fi
+
+          # fix permissions and swap directories atomically
+          ssh -o UserKnownHostsFile=known_hosts -i deploy_key "$FTP_USER@$FTP_HOST" "find ${REMOTE_PATH}_new -type d -exec chmod 755 {} \; && find ${REMOTE_PATH}_new -type f -exec chmod 644 {} \;"
+          ssh -o UserKnownHostsFile=known_hosts -i deploy_key "$FTP_USER@$FTP_HOST" "rm -rf ${REMOTE_PATH}_old || true; mv ${REMOTE_PATH} ${REMOTE_PATH}_old || true; mv ${REMOTE_PATH}_new ${REMOTE_PATH}"
+
+          # cleanup
+          rm -f deploy_key known_hosts
