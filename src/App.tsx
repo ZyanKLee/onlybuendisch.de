@@ -5,136 +5,12 @@ declare global {
   }
 }
 import { AnimatePresence, LazyMotion, domAnimation, m } from 'framer-motion'
-import {
-  Backpack,
-  BadgeCheck,
-  Compass,
-  Flame,
-  Heart,
-  Lock,
-  MessageCircle,
-  Play,
-  Search,
-  ShieldCheck,
-  Star,
-  Tent,
-  X,
-} from 'lucide-react'
+import { Flame, Heart, Play, Star, X } from 'lucide-react'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 // Hilfsfunktion zum Mischen eines Arrays (Fisher-Yates)
-function shuffle<T>(array: T[]): T[] {
-  const arr = [...array]
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[arr[i], arr[j]] = [arr[j], arr[i]]
-  }
-  return arr
-}
-
 const mediaUrl = (name: string) => `${import.meta.env.BASE_URL}gifs/${name}`
-
-const creators = [
-  { handle: '@HolzUndHerz', name: 'Holz & Herz', bio: 'Ich zeige dir, wie man es richtig macht … draußen.', tag: 'Feuer & Axt', posts: 128, avatar: '/images/photo-1507003211169-0a1dd7228f2d.jpg' },
-  { handle: '@HalstuchQueen', name: 'Halstuch Queen', bio: 'Stil ist alles – auch im Wald.', tag: 'Knoten & Look', posts: 84, avatar: '/images/photo-1494790108377-be9c29b29330.jpg' },
-  { handle: '@RucksackRalf', name: 'Rucksack Ralf', bio: 'Was wirklich drin ist, zeige ich nur hier.', tag: 'Gear Reveal', posts: 211, avatar: '/images/photo-1500648767791-00dcc994a43e.jpg' },
-  { handle: '@FeuerUndFlamme', name: 'Feuer & Flamme', bio: 'Heißer Content. Versprochen.', tag: 'Night Sessions', posts: 342, avatar: '/images/photo-1506794778202-cad84cf45f1d.jpg' },
-  { handle: '@AxtUndAndacht', name: 'Axt & Andacht', bio: 'Roh. Echt. Und immer am Feuer entstanden.', tag: 'Holz & Feuer', posts: 77, avatar: '/images/photo-1464983953574-0892a716854b.jpg' },
-  { handle: '@Waldpoet', name: 'Waldpoet', bio: 'Ich war die ganze Nacht draußen… und es war besser als du denkst.', tag: 'Lyrik & Lager', posts: 54, avatar: '/images/photo-1506744038136-46273834b3fb.jpg' },
-  { handle: '@SockeDesSchicksals', name: 'Socke des Schicksals', bio: 'Manchmal wird’s feucht. Aber immer legendär.', tag: 'Socken & Stories', posts: 39, avatar: '/profiles/SockeDesSchicksals.jpg' },
-  { handle: '@TopfUndTaten', name: 'Topf & Taten', bio: 'Heiß, würzig und direkt vom Feuer.', tag: 'Outdoor-Küche', posts: 61, avatar: '/images/photo-1773507870654-9fb937bb588f.jpg' },
-  { handle: '@KnotenKalle', name: 'Knoten Kalle', bio: 'Fester wird’s nicht. Versprochen.', tag: 'Knoten & Tricks', posts: 102, avatar: '/images/photo-1465101046530-73398c7f28ca.jpg' },
-  { handle: '@PacklistePro', name: 'Packliste Pro', bio: 'Ich packe Dinge aus… die du nicht erwartet hast.', tag: 'Gear & Tipps', posts: 88, avatar: '/images/photo-1573145833249-404548708ab3.jpg' },
-  { handle: '@ZeltGeflüster', name: 'Zelt Geflüster', bio: 'Was nachts im Zelt passiert… bleibt normalerweise im Zelt.', tag: 'Zelt & Nacht', posts: 73, avatar: '/images/photo-1536395155544-a3ba483e0b9b.jpg' },
-  { handle: '@GlutUndGloria', name: 'Glut & Gloria', bio: 'Langsam aufgebaut. Lange gehalten.', tag: 'Feuer & Glut', posts: 57, avatar: '/images/photo-1701849939549-d5ad4d92adbb.jpg' },
-  { handle: '@RegenRomantik', name: 'Regen Romantik', bio: 'Komplett durchnässt… und ich würde es wieder tun.', tag: 'Regen & Romantik', posts: 44, avatar: '/images/photo-1542801205-5240aa78e9d4.jpg' },
-  { handle: '@TrailTiefgang', name: 'Trail Tiefgang', bio: 'Je tiefer der Schlamm, desto besser die Story.', tag: 'Trail & Abenteuer', posts: 69, avatar: '/images/photo-1519125323398-675f0ddb6308.jpg' },
-  { handle: '@HolzSpalter69', name: 'HolzSpalter69', bio: 'Ich spalte alles. Wirklich alles.', tag: 'Axt & Spaß', posts: 21, avatar: '/profiles/HolzSpalter69.jpg' },
-  { handle: '@TeekesselLiebe', name: 'Teekessel Liebe', bio: 'Heiß. Dampfend. Und immer bereit.', tag: 'Tee & Wärme', posts: 33, avatar: '/images/photo-1504674900247-0877df9cc836.jpg' },
-  { handle: '@HalstuchHeiß', name: 'Halstuch Heiß', bio: 'Locker gebunden… aber mit Gefühl.', tag: 'Halstuch & Style', posts: 47, avatar: '/images/photo-1629117083886-509c79515b80.jpg' },
-]
-
-const trending = [
-  {
-    title: '🔥 Lagerfeuer – 3h uncut',
-    likes: '12.4k',
-    src: mediaUrl('lagerfeuer.mp4'),
-    isVideo: true,
-  },
-  {
-    title: 'Er wird diesen Knoten lieben... 😉',
-    likes: '9.8k',
-    src: mediaUrl('knoten.mp4'),
-    isVideo: true,
-  },
-  {
-    title: 'Ich hole alles aus meinem Sack … wirklich alles',
-    likes: '8.1k',
-    src: mediaUrl('rucksack.mp4'),
-    isVideo: true,
-  },
-  {
-    title: 'In unserem Zelt – wenn die Gruppenleiter schlafen 😏',
-    likes: '7.2k',
-    src: mediaUrl('zelt.mp4'),
-    isVideo: true,
-  },
-  {
-    title: 'Dirty Boots – Ich zeige Dir alles nach der Fahrt',
-    likes: '6.4k',
-    src: mediaUrl('boots.mp4'),
-    isVideo: true,
-  },
-  {
-    title: 'Ich liebe es heiß und saftig 💦',
-    likes: '5.9k',
-    src: mediaUrl('eintopf.mp4'),
-    isVideo: true,
-  },
-] as const
-
-const comments = [
-  { author: 'Waldgeist99', text: '🔥 Ihr habt mein Leben verändert' },
-  { author: 'KnotenKönig', text: 'Wann kommt mehr Knoten-Content??' },
-  { author: 'FeuerFuchs', text: 'Bruder… dieses Feuer 😳' },
-  { author: 'RucksackRanger', text: 'Hab direkt meinen Rucksack neu gepackt' },
-  { author: 'WilderWilli', text: 'Der Zelt-Content ist zu wild für mich' },
-
-  { author: 'GlutGourmet', text: 'Das war das heißeste, was ich je gesehen habe 🔥' },
-  { author: 'HalstuchHeld', text: 'Endlich jemand, der weiß, wie man richtig bindet' },
-  { author: 'PfadfinderPaul', text: 'Ich dachte erst das ist ein Witz… jetzt bin ich hooked' },
-  { author: 'Nachtwache', text: 'Ich hab mir das Feuer 2 Stunden angeschaut. Keine Reue.' },
-  { author: 'TeekesselTom', text: 'Dieser Dampf… ich kann das fast riechen' },
-
-  { author: 'ZeltZorro', text: 'Okay aber… warum ist das Zelt so gemütlich??' },
-  { author: 'FahrtenFred', text: 'Das bringt mich direkt auf Fahrt 😭' },
-  { author: 'KochKlaus', text: 'Dieser Eintopf hat mehr Charakter als ich' },
-  { author: 'MatschMax', text: 'Die Boots… absoluter Endgegner' },
-  { author: 'SippenSascha', text: 'Ich hab meiner Sippe direkt den Link geschickt' },
-
-  { author: 'KompassKarl', text: 'Ich wollte nur kurz schauen… jetzt ist es 2 Uhr nachts' },
-  { author: 'FeuerUndFlammeFan', text: 'Bitte mehr Nacht-Content 🔥' },
-  { author: 'KnotenNoob', text: 'Ich hab’s 5x probiert und krieg’s immer noch nicht hin 😭' },
-  { author: 'OutdoorOlli', text: 'Das ist illegal gut aufgebaut für ein Lagerfeuer' },
-  { author: 'Wegfinder', text: 'Ich bin emotional nicht bereit für so viel Qualität' },
-
-  { author: 'RegenRalf', text: 'Komplett durchnässt… fühl ich' },
-  { author: 'AxtAnton', text: 'Dieser Holz-Content trifft anders 🪓' },
-  { author: 'SockenSammler', text: 'Endlich Content für echte Kenner' },
-  { author: 'LagerfeuerLena', text: 'Ich hab das meinem Freund gezeigt. Jetzt wollen wir\'s auch tun.' },
-  { author: 'FuchsImBau', text: 'Das ist gefährlich… ich will sofort auf Fahrt' },
-
-  { author: 'GlutGina', text: 'Ich hab das Feuer 3 Nächte hintereinander angeschaut 🔥' },
-  { author: 'HeimScheisserle', text: 'Endlich muss ich nicht mehr aufs Lager fahren um alles zu erleben' },
-]
-
-const paywallTeasers = [
-  { label: 'Schlafsack-Action zu zweit', emoji: '😴', src: mediaUrl('schlafsaecke.mp4') },
-  { label: 'Was kommt rein wenn sie heiß ist?', emoji: '🍳', src: mediaUrl('pfanne.mp4') },
-  { label: 'Zelt-Chaos', emoji: '⛺', src: mediaUrl('zeltchaos.mp4') },
-  { label: 'Von oben bis unten naß am Feuer trocknen', emoji: '🧦', src: mediaUrl('socken.mp4') },
-]
 
 function ImpressumModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
@@ -372,29 +248,9 @@ export default function App() {
   const [impressumOpen, setImpressumOpen] = useState(false)
   const [ueberUnsOpen, setUeberUnsOpen] = useState(false)
   // APRILSCHERZ DEAKTIVIERT: const modalRef = useRef<HTMLDivElement>(null)
-  const [paywallUnlocked, setPaywallUnlocked] = useState<boolean[]>(() => new Array(paywallTeasers.length).fill(false))
-  const [creatorsToShow, setCreatorsToShow] = useState(8)
-  const [commentsToShow, setCommentsToShow] = useState(6)
+  
 
-  // Responsive: 8 creators only on large (lg, >=1024px), 4 otherwise
-  // Comments: 6 on >=640px, 3 on <640px
-  useEffect(() => {
-    function updateResponsiveCounts() {
-      if (window.innerWidth >= 1024) {
-        setCreatorsToShow(8)
-      } else {
-        setCreatorsToShow(4)
-      }
-      if (window.innerWidth < 640) {
-        setCommentsToShow(3)
-      } else {
-        setCommentsToShow(6)
-      }
-    }
-    updateResponsiveCounts()
-    window.addEventListener('resize', updateResponsiveCounts)
-    return () => window.removeEventListener('resize', updateResponsiveCounts)
-  }, [])
+  // Responsive counts removed (UI sections trimmed)
 
   // APRILSCHERZ DEAKTIVIERT – useEffect zum Aktivieren des AprilModals auskommentiert
   // useEffect(() => {
