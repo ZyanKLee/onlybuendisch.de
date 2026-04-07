@@ -356,6 +356,13 @@ export default function App() {
                   <Flame className="h-4 w-4" />
                   Teilt eure Ideen!
                 </a>
+                <a
+                  href="/archive/"
+                  className="inline-flex items-center gap-2 rounded-xl border border-ob-border bg-ob-surface px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/5"
+                >
+                  <Play className="h-4 w-4" />
+                  Aprilscherz-Archiv
+                </a>
               </div>
             </div>
             <div className="relative hidden flex-1 lg:block">
